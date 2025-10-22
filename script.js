@@ -39,14 +39,12 @@ function closeModal(id) {
 
 // ========== Динамическое меню ==========
 const menuImages = [
-  "https://raw.githubusercontent.com/Khvgvni/CabinetVladikWebApp/main/menu1.png",
-  "https://raw.githubusercontent.com/Khvgvni/CabinetVladikWebApp/main/menu2.png",
-  "https://raw.githubusercontent.com/Khvgvni/CabinetVladikWebApp/main/menu3.png",
-  "https://raw.githubusercontent.com/Khvgvni/CabinetVladikWebApp/main/menu4.png",
-  "https://raw.githubusercontent.com/Khvgvni/CabinetVladikWebApp/main/menu5.png",
-  "https://raw.githubusercontent.com/Khvgvni/CabinetVladikWebApp/main/menu6.png",
-  "https://raw.githubusercontent.com/Khvgvni/CabinetVladikWebApp/main/menu7.png",
-  "https://raw.githubusercontent.com/Khvgvni/CabinetVladikWebApp/main/menu8.png"
+  "https://raw.githubusercontent.com/Khvgvni/BadRabbitWebApp/main/menu1.png",
+  "https://raw.githubusercontent.com/Khvgvni/BadRabbitWebApp/main/menu2.png",
+  "https://raw.githubusercontent.com/Khvgvni/BadRabbitWebApp/main/menu3.png",
+  "https://raw.githubusercontent.com/Khvgvni/BadRabbitWebApp/main/menu4.png",
+  "https://raw.githubusercontent.com/Khvgvni/BadRabbitWebApp/main/menu5.png",
+  "https://raw.githubusercontent.com/Khvgvni/BadRabbitWebApp/main/menu6.png"
 ];
 
 function renderMenu() {
@@ -68,7 +66,7 @@ function openInvitation() {
   if (container) {
     container.innerHTML = "";
     const img = document.createElement("img");
-    img.src = "https://raw.githubusercontent.com/Khvgvni/CabinetVladikWebApp/main/Invintation.png";
+    img.src = "https://raw.githubusercontent.com/Khvgvni/BadRabbitWebApp/main/Invintation.png";
     img.className = "menu-img";
     img.loading = "lazy";
     container.appendChild(img);
@@ -108,21 +106,21 @@ async function renderCard() {
     const data = await resp.json();
 
     if (!data.ok || !data.user) {
-      cardImg.src = "https://raw.githubusercontent.com/Khvgvni/CabinetWebApp/main/card.png"; // дефолтная карта
+      cardImg.src = "https://raw.githubusercontent.com/Khvgvni/BadRabbitWebApp/main/card.png"; // дефолтная карта
       return;
     }
 
     const status = (data.user.status || "Default").toLowerCase();
     let cardSrc = "https://raw.githubusercontent.com/Khvgvni/CabinetWebApp/main/card.png";
 
-    if (status === "black") cardSrc = "https://raw.githubusercontent.com/Khvgvni/CabinetVladikWebApp/main/card_black.png";
-    if (status === "silver") cardSrc = "https://raw.githubusercontent.com/Khvgvni/CabinetVladikWebApp/main/card_silver.png";
-    if (status === "gold") cardSrc = "https://raw.githubusercontent.com/Khvgvni/CabinetVladikWebApp/main/card_gold.png";
+    if (status === "black") cardSrc = "https://raw.githubusercontent.com/Khvgvni/BadRabbitWebApp/main/card_black.png";
+    if (status === "silver") cardSrc = "https://raw.githubusercontent.com/Khvgvni/BadRabbitWebApp/main/card_silver.png";
+    if (status === "gold") cardSrc = "https://raw.githubusercontent.com/Khvgvni/BadRabbitWebApp/main/card_gold.png";
 
     cardImg.src = cardSrc;
   } catch (e) {
     console.error("Ошибка при загрузке клубной карты:", e);
-    cardImg.src = "https://raw.githubusercontent.com/Khvgvni/CabinetWebApp/main/card.png"; // fallback
+    cardImg.src = "https://raw.githubusercontent.com/Khvgvni/BadRabbitWebApp/main/card.png"; // fallback
   }
 }
 
