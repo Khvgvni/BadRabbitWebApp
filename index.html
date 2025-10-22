@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cabinet — Mini App</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Обязательно подключаем Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+
+<body>
+  <!-- Прелоадер -->
+  <div id="preloader" aria-hidden="false">
+    <div class="loader">
+      <img src="https://raw.githubusercontent.com/Khvgvni/CabinetVladikWebApp/main/Logo-removebg-preview.png" alt="Logo" />
+      <span>Загрузка...</span>
+    </div>
+  </div>
+
+  <!-- Лого -->
+  <div class="logo-container">
+    <img src="https://raw.githubusercontent.com/Khvgvni/CabinetVladikWebApp/main/Logo-removebg-preview.png" alt="Logo" class="logo" />
+  </div>
+
+  <!-- Главные кнопки (в колонку) -->
+  <div class="main-buttons">
+    <button class="glass-button primary" onclick="openModal('bookTableModal')">Забронировать стол</button>
+    <button class="glass-button" onclick="openModal('taxiModal')">Вызвать такси</button>
+    <button class="glass-button" onclick="openModal('menuModal')">Меню</button>
+    <button class="glass-button" onclick="openModal('joinTeamModal')">Хочу в команду</button>
+    <button class="glass-button" onclick="openInvitation()">Получить пригласительный</button>
+  </div>
+
+  <!-- Нижняя навигация -->
+  <nav class="bottom-nav" role="navigation">
+    <button class="nav-btn" onclick="openModal('posterModal')">Афиша</button>
+    <button class="nav-btn" onclick="openModal('cardModal')">Карта</button>
+    <button class="nav-btn" onclick="openModal('giftsModal')">Подарки</button>
+    <button class="nav-btn" onclick="openModal('profileModal')">Профиль</button>
+  </nav>
+
+  <!-- ================== Модальные окна ================== -->
+
+  <!-- Бронь стола -->
+  <div id="bookTableModal" class="modal" aria-hidden="true">
+    <div class="modal-content animate">
+      <h2>Забронировать стол</h2>
+      <div class="modal-body">
+        <form id="bookTableForm" class="form">
+          <input type="text" id="name" placeholder="Ваше имя" required />
+          <input type="tel" id="phone" placeholder="Телефон" required />
+          <button type="submit" class="glass-button primary full">Отправить</button>
+        </form>
+      </div>
+      <div class="modal-footer sticky">
+        <button class="glass-button full" onclick="closeModal('bookTableModal')">Назад</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Такси -->
+  <div id="taxiModal" class="modal" aria-hidden="true">
+    <div class="modal-content animate">
+      <h2>Вызвать такси</h2>
+      <div class="modal-body">
+        <form id="taxiForm" class="form">
+          <input type="text" id="taxiName" placeholder="Ваше имя" required />
+          <input type="tel" id="taxiPhone" placeholder="Телефон" required />
+          <input type="text" id="taxiAddress" placeholder="Адрес" required />
+          <button type="submit" class="glass-button primary full">Отправить</button>
+        </form>
+      </div>
+      <div class="modal-footer sticky">
+        <button class="glass-button full" onclick="closeModal('taxiModal')">Назад</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Меню -->
+  <div id="menuModal" class="modal" aria-hidden="true">
+    <div class="modal-content animate">
+      <h2>Меню</h2>
+      <div class="modal-body" id="menuContainer"></div>
+      <div class="modal-footer sticky">
+        <button class="glass-button full" onclick="closeModal('menuModal')">Назад</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Хочу в команду -->
+  <div id="joinTeamModal" class="modal" aria-hidden="true">
+    <div class="modal-content animate">
+      <h2>Хочу в команду</h2>
+      <div class="modal-body">
+        <form id="joinTeamForm" class="form">
+          <input type="text" id="teamName" placeholder="Ваше имя" required />
+          <input type="tel" id="teamPhone" placeholder="Телефон" required />
+          <input type="text" id="teamRole" placeholder="Желаемая должность" required />
+          <button type="submit" class="glass-button primary full">Отправить</button>
+        </form>
+      </div>
+      <div class="modal-footer sticky">
+        <button class="glass-button full" onclick="closeModal('joinTeamModal')">Назад</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Пригласительный -->
+  <div id="invitationModal" class="modal" aria-hidden="true">
+    <div class="modal-content animate">
+      <h2>Пригласительный</h2>
+      <div class="modal-body">
+        <div id="invitationContainer"></div>
+      </div>
+      <div class="modal-footer sticky">
+        <button class="glass-button full" onclick="closeModal('invitationModal')">Назад</button>
+      </div>
+    </div>
+  </div>
+
+<!-- Афиша -->
+<div id="posterModal" class="modal" aria-hidden="true">
+  <div class="modal-content animate">
+    <h2>Афиша</h2>
+    <div class="modal-body" id="posterContainer">
+      <p>Загрузка афиши...</p>
+    </div>
+    <div class="modal-footer sticky">
+      <button class="glass-button full" onclick="closeModal('posterModal')">Назад</button>
+    </div>
+  </div>
+</div>
+
+  <!-- Карта -->
+  <div id="cardModal" class="modal" aria-hidden="true">
+    <div class="modal-content animate">
+      <h2>Клубная карта</h2>
+      <div class="modal-body">
+        <img id="userCardImg" src="" alt="Карта" class="menu-img" />
+      </div>
+      <div class="modal-footer sticky">
+        <button class="glass-button full" onclick="closeModal('cardModal')">Назад</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Modal: Gifts ===== -->
+<div id="giftsModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-body">
+      <div class="gift-section">
+
+        <div class="gift-card">
+          <h3> Эксклюзив для новичков клуба</h3>
+          <ul>
+            <li>Вход в заведение</li>
+            <li>Welcome drink</li>
+            <li>Приватный танец</li>
+            <li>Карта клуба</li>
+            <li>Просмотр шоу</li>
+          </ul>
+        </div>
+
+        <div class="gift-card">
+          <h3> Мальчишник</h3>
+          <ul>
+            <li>Вход в заведение всей компанией</li>
+            <li>Welcome drink для всей компании</li>
+            <li>Эксклюзивная шоу программа</li>
+            <li>Карта нашего клуба</li>
+            <li>Скидка на меню бара</li>
+          </ul>
+        </div>
+
+        <div class="gift-card">
+          <h3> День рождения</h3>
+          <ul>
+            <li>Скидка на меню бара</li>
+            <li>Карта нашего клуба</li>
+            <li>Подарок для именинника</li>
+            <li>Эксклюзивная шоу программа</li>
+          </ul>
+        </div>
+
+        <button class="glass-button full" onclick="closeModal('giftsModal')">Назад</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================== Админ-панель ================== -->
+<div id="adminModal" class="modal" aria-hidden="true">
+  <div class="modal-content animate">
+    <h2>Админ-панель</h2>
+    <div class="modal-body">
+
+      <!-- Логин -->
+      <div id="adminLogin">
+        <input type="password" id="adminPassword" placeholder="Пароль администратора" />
+        <button class="glass-button primary full" onclick="adminLogin()">Войти</button>
+      </div>
+
+      <!-- Панель -->
+      <div id="adminPanel" style="display:none;">
+        <div class="tabs">
+          <button class="tab-btn active" onclick="openTab('bannersTab')">Афиши</button>
+          <button class="tab-btn" onclick="openTab('usersTab')">Пользователи</button>
+          <button class="tab-btn" onclick="openTab('broadcastTab')">Рассылка</button>
+        </div>
+
+        <!-- Афиши -->
+        <div class="tab-content" id="bannersTab">
+          <h3>Загрузить афишу</h3>
+          <input type="file" id="bannerFile" accept="image/*" />
+          <button class="glass-button full" onclick="uploadBanner()">Загрузить</button>
+          <h3>Список афиш</h3>
+          <div id="bannersList"></div>
+        </div>
+
+        <!-- Пользователи -->
+        <div class="tab-content" id="usersTab" style="display:none;">
+          <h3>Статус пользователя</h3>
+          <input type="text" id="userName" placeholder="Имя (необязательно)" />
+          <input type="tel" id="userPhone" placeholder="Телефон" />
+          <select id="userStatus">
+            <option value="Default">Default</option>
+            <option value="Black">Black</option>
+            <option value="Silver">Silver</option>
+            <option value="Gold">Gold</option>
+          </select>
+          <button class="glass-button full" onclick="setUserStatus()">Сохранить статус</button>
+          <h3>Пользователи</h3>
+          <div id="usersList"></div>
+        </div>
+
+        <!-- Рассылка -->
+        <div class="tab-content" id="broadcastTab" style="display:none;">
+          <h3>Массовая рассылка</h3>
+          <textarea id="broadcastText" placeholder="Текст сообщения" style="width:100%;height:100px;"></textarea>
+          <h4>Отправить по статусу</h4>
+          <select id="broadcastStatus">
+            <option value="">-- не выбран --</option>
+            <option value="Default">Default</option>
+            <option value="Black">Black</option>
+            <option value="Silver">Silver</option>
+            <option value="Gold">Gold</option>
+          </select>
+          <h4>ИЛИ по телефонам (через запятую)</h4>
+          <input type="text" id="broadcastPhones" placeholder="+79998887766, +79995554433" style="width:100%;" />
+          <button class="glass-button primary full" onclick="sendBroadcast()">Отправить</button>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer sticky">
+      <button class="glass-button full" onclick="closeModal('adminModal')">Назад</button>
+    </div>
+  </div>
+</div>
+
+<!-- Профиль -->
+<div id="profileModal" class="modal" aria-hidden="true">
+  <div class="modal-content animate">
+    <h2 style="display:flex; justify-content:space-between; align-items:center;">
+      Профиль
+<!-- Замочек для входа в админку -->
+<span id="adminLock" onclick="openModal('adminModal')" style="cursor:pointer;" title="Админ-панель">
+  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 24 24" style="vertical-align: middle;">
+    <path d="M17 8h-1V6a4 4 0 1 0-8 0v2H7a2 2 0 0 0-2 2v10a2 
+             2 0 0 0 2 2h10a2 2 0 0 0 2-2V10a2 2 0 0 
+             0-2-2zm-5 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm3-9H9V6a3 
+             3 0 0 1 6 0v2z"/>
+  </svg>
+</span>
+    </h2>
+    <div class="modal-body">
+      <p><b>ФИО:</b> <span id="profileName">—</span></p>
+      <p><b>Телефон:</b> <span id="profilePhone">—</span></p>
+      <p><b>Статус:</b> <span id="profileStatus">—</span></p>
+    </div>
+    <div class="modal-footer sticky">
+      <button class="glass-button full" onclick="closeModal('profileModal')">Назад</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
