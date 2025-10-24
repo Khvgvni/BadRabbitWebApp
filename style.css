@@ -475,21 +475,18 @@ body::before {
   z-index: -1;
 }
 
-/* ===== Fix: модалки без скролла (Афиша, Подарки, Меню, Пригласительный) ===== */
-
-/* Общие правила */
-.modal.no-scroll .modal-body {
-  flex: 1;
-  overflow: hidden;        /* отключаем прокрутку */
+/* ===== Fit content inside modals (Invitation, Poster, Gifts) ===== */
+.modal-body.fit {
+  overflow: hidden;
   display: grid;
   place-items: center;
 }
-
-/* Всё, что внутри таких модалок — центрируется и вписывается */
-.modal.no-scroll .modal-body > * {
-  max-width: 100%;
-  max-height: 80vh;        /* отступ сверху/снизу под заголовок и кнопку */
-  width: auto;
-  height: auto;
-  object-fit: contain;
+.fit-viewport {
+  transform-origin: top center;
+  will-change: transform;
 }
+/* в режиме fit не ограничиваем изображения 70vh */
+.modal-body.fit .menu-img { max-height: 100% !important; }
+/* и не даём posterContainer скроллиться внутри fit */
+.modal-body.fit #posterContainer { overflow: visible; max-height: none; padding-right: 0; }
+.modal-body.fit #posterContainer img { max-width: 100%; height: auto; object-fit: contain; }
