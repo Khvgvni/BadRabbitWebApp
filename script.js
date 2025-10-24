@@ -488,3 +488,44 @@ document.getElementById('adminModal').addEventListener('click', function(e) {
     }
   }
 });
+
+// ===== Автоматическое вписывание содержимого в модалки =====
+function fitToViewport(innerEl, outerEl) {
+  if (!innerEl || !outerEl) return;
+  innerEl.style.transform = 'scale(1)'; // сброс
+  const ow = outerEl.clientWidth;
+  const oh = outerEl.clientHeight;
+  const rect = innerEl.getBoundingClientRect();
+  const scale = Math.min(ow / rect.width, oh / rect.height, 1);
+  innerEl.style.transform = `scale(${scale})`;
+}
+
+function enableFit(modalId, innerSelector) {
+  const modalBody = document.querySelector(modalId + ' .modal-body');
+  const inner = document.querySelector(innerSelector);
+  if (!modalBody || !inner) return;
+
+  modalBody.classList.add('fit');
+  inner.classList.add('fit-viewport');
+
+  const apply = () => fitToViewport(inner, modalBody);
+  apply();
+  window.addEventListener('resize', apply);
+  window.addEventListener('orientationchange', apply);
+}
+
+// Переопределяем openModal, чтобы подключать fit для нужных окон
+const __openModalOriginal = openModal;
+openModal = function(id) {
+  __openModalOriginal(id);
+
+  if (id === 'invitationModal') {
+    setTimeout(() => enableFit('#invitationModal', '#invitationContainer'), 0);
+  }
+  if (id === 'posterModal') {
+    setTimeout(() => enableFit('#posterModal', '#posterContainer'), 0);
+  }
+  if (id === 'giftsModal') {
+    setTimeout(() => enableFit('#giftsModal', '.gift-section'), 0);
+  }
+};
