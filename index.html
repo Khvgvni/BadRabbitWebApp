@@ -108,7 +108,7 @@
   </div>
 
   <!-- Пригласительный -->
-  <div id="invitationModal" class="modal no-scroll">
+  <div id="invitationModal" class="modal" aria-hidden="true">
     <div class="modal-content animate">
       <h2>Пригласительный</h2>
       <div class="modal-body">
@@ -121,7 +121,7 @@
   </div>
 
 <!-- Афиша -->
-<div id="posterModal" class="modal no-scroll" aria-hidden="true">
+<div id="posterModal" class="modal" aria-hidden="true">
   <div class="modal-content animate">
     <h2>Афиша</h2>
     <div class="modal-body" id="posterContainer">
@@ -147,7 +147,7 @@
   </div>
 
   <!-- ===== Modal: Gifts ===== -->
-<div id="giftsModal" class="modal no-scroll">
+<div id="giftsModal" class="modal">
   <div class="modal-content">
     <div class="modal-body">
       <div class="gift-section">
@@ -268,8 +268,7 @@
 <!-- Замочек для входа в админку -->
 <span id="adminLock" onclick="openModal('adminModal')" style="cursor:pointer;" title="Админ-панель">
   <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 24 24" style="vertical-align: middle;">
-    <path d="M17 8h-1V6a4 4 0 1 0-8 0v2H7a2 2 0 0 0-2 2v10a2 
-             2 0 0 0 2 2h10a2 2 0 0 0 2-2V10a2 2 0 0 
+    <path d="M17 8h-1V6a4 4 0 1 0-8 0v2H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V10a2 2 0 0 
              0-2-2zm-5 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm3-9H9V6a3 
              3 0 0 1 6 0v2z"/>
   </svg>
@@ -287,3 +286,5 @@
 </div>
 
 <script src="script.js"></script>
+</body>
+</html>
