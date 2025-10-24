@@ -474,3 +474,22 @@ body::before {
   background: rgba(0,0,0,0.45); /* прозрачный тёмный слой */
   z-index: -1;
 }
+
+/* ===== Fix: модалки без скролла (Афиша, Подарки, Меню, Пригласительный) ===== */
+
+/* Общие правила */
+.modal.no-scroll .modal-body {
+  flex: 1;
+  overflow: hidden;        /* отключаем прокрутку */
+  display: grid;
+  place-items: center;
+}
+
+/* Всё, что внутри таких модалок — центрируется и вписывается */
+.modal.no-scroll .modal-body > * {
+  max-width: 100%;
+  max-height: 80vh;        /* отступ сверху/снизу под заголовок и кнопку */
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
