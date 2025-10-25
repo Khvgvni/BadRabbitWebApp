@@ -304,7 +304,7 @@ async function uploadBanner() {
   fd.append("image", f);
   
   try {
-    const resp = await fetch(`${API_BASE}/api/admin/banners/cabinetvladik`, {
+    const resp = await fetch(`${API_BASE}/api/admin/banners/badrabbit`, {
       method: "POST",
       headers: { "Authorization": `Bearer ${adminToken()}` },
       body: fd
@@ -314,16 +314,16 @@ async function uploadBanner() {
     
     alert("Афиша загружена!");
     fileInput.value = ""; // Очищаем input
-    loadBanners();
+    loadBannersBadRabbit();
   } catch (error) {
     alert("Ошибка сети: " + error.message);
   }
 }
 
-// === Загрузка афиш CabinetVladik ===
-async function loadBannersVladik() {
+// === Загрузка афиш BadRabbit ===
+async function loadBannersBadRabbit() {
   try {
-    const resp = await fetch(`${API_BASE}/api/banners/cabinetvladik`);
+    const resp = await fetch(`${API_BASE}/api/banners/badrabbit`);
     const data = await resp.json();
     const list = document.getElementById("bannersList");
     list.innerHTML = "";
@@ -334,7 +334,7 @@ async function loadBannersVladik() {
         div.className = "poster-item";
         div.innerHTML = `
           <img src="${API_BASE}${b.image}" class="menu-img" loading="lazy"/>
-          <button onclick="deleteBannerVladik(${b.id})" class="delete-btn">Удалить</button>
+          <button onclick="deleteBannerBadRabbit(${b.id})" class="delete-btn">Удалить</button>
         `;
         list.appendChild(div);
       });
@@ -347,17 +347,17 @@ async function loadBannersVladik() {
   }
 }
 
-// === Удаление афиши CabinetVladik ===
-async function deleteBannerVladik(id) {
+// === Удаление афиши BadRabbit ===
+async function deleteBannerBadRabbit(id) {
   if (!confirm("Удалить афишу?")) return;
   try {
-    const resp = await fetch(`${API_BASE}/api/admin/banners/cabinetvladik/${id}`, {
+    const resp = await fetch(`${API_BASE}/api/admin/banners/badrabbit/${id}`, {
       method: "DELETE",
       headers: { "Authorization": `Bearer ${adminToken()}` }
     });
     const data = await resp.json();
     if (!data.ok) return alert(data.error || "Ошибка удаления");
-    loadBannersVladik();
+    loadBannersBadRabbit();
   } catch (error) {
     alert("Ошибка сети: " + error.message);
   }
@@ -395,7 +395,7 @@ async function setUserStatus() {
 
 async function loadUsers() {
   try {
-    // ИСПРАВЛЕНО: правильный endpoint для получения пользователей
+    // правильный endpoint для получения пользователей
     const resp = await fetch(`${API_BASE}/api/admin/users`, {
       headers: { "Authorization": `Bearer ${adminToken()}` }
     });
@@ -425,13 +425,13 @@ async function loadUsers() {
   }
 }
 
-// Загружаем афишу
+// Загружаем афиши в клиенте
 async function loadPosters() {
   const container = document.getElementById("posterContainer");
   container.innerHTML = "Загрузка афиши...";
 
   try {
-    const res = await fetch("https://api.cabinetbot.cabinet75.ru/api/banners/cabinetvladik");
+    const res = await fetch(`${API_BASE}/api/banners/badrabbit`);
     const data = await res.json();
 
     if (data.ok) {
@@ -439,7 +439,7 @@ async function loadPosters() {
       data.banners.forEach(b => {
         const div = document.createElement("div");
         div.className = "poster-item";
-        div.innerHTML = `<img src="https://api.cabinetbot.cabinet75.ru${b.image}" alt="${b.title}" /><p>${b.title}</p>`;
+        div.innerHTML = `<img src="${API_BASE}${b.image}" alt="${b.title}" /><p>${b.title}</p>`;
         container.appendChild(div);
       });
     } else {
