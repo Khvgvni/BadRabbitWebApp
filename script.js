@@ -163,7 +163,9 @@ window.addEventListener("DOMContentLoaded", () => {
   renderMenu();
 
   // Определяем имя приложения (по урлу)
-const APP_NAME = window.location.href.includes("CabinetVladikWebApp") ? "cabinetvladik" : "cabinet75";
+const APP_NAME = window.location.href.includes("BadRabbitWebApp")
+  ? "badrabbit"
+  : (window.location.href.includes("CabinetVladikWebApp") ? "cabinetvladik" : "cabinet75");
 
 // Универсальная функция для отправки заявок
 async function sendToServer(endpoint, payload) {
