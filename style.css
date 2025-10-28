@@ -270,13 +270,15 @@ textarea{ resize: vertical; min-height: 112px; }
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 10px;
-  width: 100%;
+  padding: 4px;
+  width: 98vw;
 }
 
 /* карточка тянется на всю ширину контейнера */
 .gift-card{
-  width: 100%;
+  width: calc(100% + 12px);
+  margin-left: -6px;
+  margin-right: -6px;
   padding: clamp(14px, 3.8vw, 22px);
   border-radius: 18px;
   background: var(--glass-bg);
