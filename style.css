@@ -274,16 +274,25 @@ textarea{ resize: vertical; min-height: 112px; }
   width: 100%;
 }
 
-.gift-card {
+/* карточка тянется на всю ширину контейнера */
+.gift-card{
   width: 100%;
+  padding: clamp(14px, 3.8vw, 22px);
+  border-radius: 18px;
   background: var(--glass-bg);
-  border: 1px solid var(--accent);
-  border-radius: var(--radius);
-  padding: 18px 20px;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.25);
+  border: 1px solid rgba(230, 200, 121, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(230, 200, 121, 0.18) inset,
+    0 10px 26px rgba(230, 200, 121, 0.22);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   transition: transform .2s ease, box-shadow .3s ease;
+}
+.gift-card:hover{
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(230, 200, 121, 0.28) inset,
+    0 14px 34px rgba(230, 200, 121, 0.32);
 }
 
 .gift-card:hover {
