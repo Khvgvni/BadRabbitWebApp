@@ -106,7 +106,7 @@ async function render() {
     const data = await resp.json();
 
     if (!data.ok || !data.user) {
-      cardImg.src = "https://raw.githubusercontent.com/Khvgvni/BadRabbitWebApp/main/card_black.png"; // дефолтная карта
+      cardImg.src = "https://raw.githubusercontent.com/Khvgvni/BadRabbitWebApp/main/card.png"; // дефолтная карта
       return;
     }
 
