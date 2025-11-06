@@ -92,7 +92,7 @@ async function sendMessage(message) {
 }
 
 // ========== Клубная карта ==========
-async function render() {
+async function renderCard() {
   const cardImg = document.getElementById("userCardImg");
   if (!cardImg) return;
 
