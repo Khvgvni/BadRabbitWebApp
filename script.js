@@ -111,7 +111,7 @@ async function render() {
     }
 
     const status = (data.user.status || "Default").toLowerCase();
-    let cardSrc = "https://raw.githubusercontent.com/Khvgvni/CabinetWebApp/main/card.png";
+    let cardSrc = "https://raw.githubusercontent.com/Khvgvni/BadRabbitWebApp/main/card.png";
 
     if (status === "black") cardSrc = "https://raw.githubusercontent.com/Khvgvni/BadRabbitWebApp/main/card_black.png";
     if (status === "silver") cardSrc = "https://raw.githubusercontent.com/Khvgvni/BadRabbitWebApp/main/card_silver.png";
